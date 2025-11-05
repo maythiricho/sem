@@ -18,24 +18,21 @@ jobs:
           java-version: '18'
           distribution: 'adopt'
 
+      # Build and run unit tests
       - name: Build with Maven
         run: mvn package
 
       - name: Unit Tests
         run: mvn -Dtest=com.napier.sem.AppTest test
 
-      - name: Package and Run docker compose
-        run: |
-          mvn package -DskipTests
-          docker-compose up --abort-on-container-exit
-
-      # Install docker-compose (for ubuntu-24.04)
+      # Install docker-compose (must come before use)
       - name: Install Docker Compose
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      - name: Run docker-compose
-        run: docker-compose up --abort-on-container-exit
-
-
+      # Package and run docker-compose
+      - name: Package and Run docker compose
+        run: |
+          mvn package -DskipTests
+          docker-compose up --abort-on-container-exit
