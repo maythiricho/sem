@@ -24,8 +24,10 @@ jobs:
       - name: Unit Tests
         run: mvn -Dtest=com.napier.sem.AppTest test
 
-      - name: Package App
-        run: mvn package -DskipTests
+      - name: Package and Run docker compose
+        run: |
+          mvn package -DskipTests
+          docker-compose up --abort-on-container-exit
 
       # Install docker-compose (for ubuntu-24.04)
       - name: Install Docker Compose
