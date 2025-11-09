@@ -16,15 +16,20 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'adopt'
 
-      - name: Build with Maven
-        run: mvn package
-
-      - name: Run Unit Tests
+      # Run only the specified unit test class
+      - name: Unit Tests
         run: mvn -Dtest=com.napier.sem.AppTest test
 
+      # Install docker-compose (for ubuntu-24.04)
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      # Package the app (skip tests) and run Docker Compose
       - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
-          docker compose up --abort-on-container-exit
+          docker-compose up --abort-on-container-exit
