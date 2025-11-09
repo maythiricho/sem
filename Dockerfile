@@ -1,4 +1,4 @@
-FROM amazoncorretto:17
+FROM eclipse-temurin:18-jdk
 
 WORKDIR /tmp
 
