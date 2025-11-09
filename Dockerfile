@@ -1,8 +1,9 @@
 FROM amazoncorretto:17
 
-WORKDIR /tmp
+WORKDIR /app
 
-# Make sure to include the .jar extension
-COPY ./target/DevOpsLab1-0.1.0.2-jar-with-dependencies.jar /tmp
+# Copy the correct JAR from target folder
+COPY ./target/seMethods-0.1-alpha-2-jar-with-dependencies.jar /app/app.jar
 
-ENTRYPOINT ["java", "-jar", "DevOpsLab1-0.1.0.2-jar-with-dependencies.jar"]
+# Run the application
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
