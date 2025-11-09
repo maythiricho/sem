@@ -1,4 +1,4 @@
-FROM openjdk:18
+FROM amazoncorretto:17
 
 WORKDIR /tmp
 

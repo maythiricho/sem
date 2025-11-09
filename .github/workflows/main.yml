@@ -7,28 +7,23 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      # Step 1: Checkout code
       - name: Checkout
         uses: actions/checkout@v3
         with:
           submodules: recursive
 
-      # Step 2: Set up Java 18
-      - name: Set up JDK 18
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '18'
-          distribution: 'adopt'
+          java-version: '17'
+          distribution: 'temurin'
 
-      # Step 3: Build and compile with Maven
       - name: Build with Maven
         run: mvn package
 
-      # Step 4: Run JUnit tests (AppTest)
       - name: Run Unit Tests
         run: mvn -Dtest=com.napier.sem.AppTest test
 
-      # Step 5: Package app and run Docker Compose
       - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
