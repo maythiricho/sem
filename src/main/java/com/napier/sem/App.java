@@ -191,6 +191,16 @@ public class App {
             System.out.println("Failed to add employee");
         }
     }
+    public void deleteEmployee(int emp_no) {
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "DELETE FROM employees WHERE emp_no = " + emp_no;
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println("Failed to delete employee " + emp_no + ": " + e.getMessage());
+        }
+    }
+
 
     public static void main(String[] args) {
         // Create new Application and connect to database
