@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-      - lab08
+      - develop
 
 permissions:
   contents: write
