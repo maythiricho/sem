@@ -193,7 +193,6 @@ public class App {
     }
 
 
-
     public static void main(String[] args) {
         // Create new Application and connect to database
         App a = new App();
