@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-      - develop #hello
+      - develop
 
 permissions:
   contents: write
