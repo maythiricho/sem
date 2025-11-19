@@ -2,6 +2,7 @@ name: A workflow for my Hello World App
 
 permissions:
   contents: write   # required to create/update release tags
+  #testing
 
 on:
   push:
