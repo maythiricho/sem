@@ -1,10 +1,10 @@
 name: A workflow for my Hello World App
+
 on:
   push:
     branches:
       - master
       - develop #hello
-
 
 jobs:
   UnitTests:
@@ -15,20 +15,23 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
       - name: Set up JDK 24
         uses: actions/setup-java@v2
         with:
           java-version: '24'
           distribution: 'temurin'
-      - name: Unit Tests
+
+      - name: Run Unit Tests
         run: mvn -Dtest=com.napier.sem.AppTest test
-      - name: CodeCov
+
+      - name: Upload Code Coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
-            #token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-            directory: ./target/site/jacoco
-            flags: Unit Tests # optional
-            verbose: true # optional (default = false)
+          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          directory: ./target/site/jacoco
+          flags: Unit Tests
+          verbose: true
 
   IntegrationTests:
     name: Integration Tests
@@ -38,54 +41,62 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
       - name: Set up JDK 24
         uses: actions/setup-java@v2
         with:
           java-version: '24'
           distribution: 'temurin'
-      - name: Integration Tests
+
+      - name: Run Integration Tests
         run: |
           docker compose up -d db
           mvn -Dtest=com.globalworldpopulation.MySQL_Test_Integration_Test test
-      - name: Shutdown
+
+      - name: Shutdown Docker
         run: docker compose down
-      - name: CodeCov
-        uses: codecov/codecov-action@v2
+
+      - name: Upload Code Coverage to Codecov
+        uses: codecov/codecov-action@v5
         with:
           # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           directory: ./target/site/jacoco
-          flags: Integration Tests # optional
-          verbose: true # optional (default = false)
-  build:
-    name: Build and Start Using docker-compose
+          flags: Integration Tests
+          verbose: true
+
+  BuildAndDeploy:
+    name: Build and Deploy Using docker-compose
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
       - name: Set up JDK 24
         uses: actions/setup-java@v2
         with:
           java-version: '24'
           distribution: 'temurin'
-      - name: Package and Run docker compose
+
+      - name: Package and Run Docker Compose
         run: |
           mvn package -DskipTests
           docker compose up --abort-on-container-exit
-      - name: CodeCov
-        uses: codecov/codecov-action@v2
+
+      - name: Upload Code Coverage to Codecov
+        uses: codecov/codecov-action@v5
         with:
-        # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-        directory: ./target/site/jacoco
-        flags: Integration Tests # optional
-        verbose: true # optional (default = false)
+          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          directory: ./target/site/jacoco
+          flags: Integration Tests
+          verbose: true
 
       - name: Deploy Release to GitHub
         uses: marvinpinto/action-automatic-releases@latest
         with:
-            repo_token: "${{ secrets.GITHUB_TOKEN }}"
-            prerelease: false
-            automatic_release_tag: "latest"
-            files: |
-              ./target/devops.jar
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          automatic_release_tag: "latest"
+          files: |
+            ./target/devops.jar
