@@ -5,9 +5,6 @@ on:
       - master
       - develop
 
-permissions:
-  contents: write
-  pages: write
 
 jobs:
   UnitTests:
@@ -22,16 +19,10 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '24'
-          distribution: 'adopt'
+          distribution: 'temurin'
       - name: Unit Tests
         run: mvn -Dtest=com.napier.devops.AppTest test
-      - name: CodeCov
-        uses: codecov/codecov-action@v5
-        with:
-          #token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          directory: ./target/site/jacoco
-          flags: Unit Tests # optional
-          verbose: true # optional (default = false)
+
 
   IntegrationTests:
     name: Integration Tests
@@ -45,7 +36,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '24'
-          distribution: 'adopt'
+          distribution: 'temurin'
       - name: Integration Tests
         run: |
           docker build -t database ./db 
@@ -73,8 +64,15 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '24'
-          distribution: 'adopt'
+          distribution: 'temurin'
       - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
           docker compose up --abort-on-container-exit
+      - name: CodeCov
+        uses: codecov/codecov-action@v2
+        with:
+          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          directory: ./target/site/jacoco
+          flags: Integration Tests # optional
+          verbose: true # optional (default = false)
