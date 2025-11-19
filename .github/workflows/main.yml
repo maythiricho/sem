@@ -51,7 +51,7 @@ jobs:
       - name: Run Integration Tests
         run: |
           docker compose up -d db
-          mvn -Dtest=com.globalworldpopulation.MySQL_Test_Integration_Test test
+          mvn -Dtest=com.napier.sem.AppIntegrationTest test
 
       - name: Shutdown Docker
         run: docker compose down
