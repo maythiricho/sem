@@ -1,4 +1,4 @@
-FROM eclipse-temurin:24-jdk
-COPY ./target/seMethods.jar /tmp
+FROM openjdk:24
+COPY ./target/devops.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "-jar", "seMethods.jar", "db:3306", "10000"]
+ENTRYPOINT ["java", "-jar", "devops.jar", "db:3306", "10000"]
