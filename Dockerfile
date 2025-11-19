@@ -1,4 +1,4 @@
 FROM eclipse-temurin:24
-COPY ./target/devops.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "-jar", "devops.jar", "db:3306", "10000"]
+COPY ./target/devops.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar", "db:3306", "10000"]
