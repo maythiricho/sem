@@ -1,3 +1,4 @@
-FROM openjdk:18
-COPY target/DevOpsLab1-0.1.0.2-jar-with-dependencies.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+FROM eclipse-temurin:24
+COPY ./target/sem.jar /tmp
+WORKDIR /tmp
+ENTRYPOINT ["java", "-jar", "sem.jar", "db:3306", "10000"]
