@@ -1,0 +1,93 @@
+name: Bug Report
+description: File a bug report for the SEM project.
+title: "[Bug]: "
+labels: ["bug"]
+assignees: []
+type: bug
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐞 Bug Report
+        Thanks for taking the time to fill out this bug report!
+        Please provide as much information as possible.
+
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: Optional — add your email or GitHub username.
+      placeholder: ex. yourname@example.com
+    validations:
+      required: false
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug clearly. What did you expect to happen instead?
+      placeholder: The application crashed when I clicked "Submit"...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Write the steps required to reproduce the issue.
+      placeholder: |
+        1. Go to page...
+        2. Click button...
+        3. See error...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version / Branch
+      description: Which version or branch were you using?
+      options:
+        - master
+        - develop
+        - v0.1.0.2
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      multiple: true
+      options:
+        - GitHub Actions
+        - Local Machine
+        - Docker Container
+        - IntelliJ
+        - Linux (Ubuntu)
+        - Windows
+        - MacOS
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Log Output
+      description: Paste any relevant logs here.
+      render: shell
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Add screenshots if useful.
+      placeholder: Paste screenshot URLs or drag images here.
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: You must agree before submitting.
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
