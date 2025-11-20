@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Testing bug report template
+about: Testing bug report system
 title: ''
 labels: ''
 assignees: maythiricho
