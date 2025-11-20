@@ -1,9 +1,10 @@
 name: Bug Report
 description: File a bug report for the SEM project.
 title: "Bug"
-labels: "bug"
-assignees: maythiricho
-type: bug
+labels:
+  - bug
+assignees:
+  - maythiricho
 
 body:
   - type: markdown
